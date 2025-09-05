@@ -1,5 +1,6 @@
 # Import python packages
 import streamlit as st
+import requests
 #from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 
@@ -42,7 +43,8 @@ if ingredients_list:
 
     time_to_insert = st.button('Submit Order')
     #st.write(my_insert_stmt)
-    
+    smoothie_fruit_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+    st.text(smoothie_fruit_response)
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie Is Ordered, '+name_on_order+ '!', icon='✅')
